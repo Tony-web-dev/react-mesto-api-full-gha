@@ -1,0 +1,13 @@
+.gate__fieldset {
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    margin: 50px 0 0;
+    padding: 0;
+}
+
+@media screen and (max-width: 620px) {
+    .gate__fieldset {
+        margin-top: 68px;
+    }
+}

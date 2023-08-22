@@ -1,0 +1,11 @@
+.header__loginbox {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 6px;
+}
+
+@media screen and (max-width: 1023px) {
+  .header__loginbox {
+    margin-right: 27px;
+  }
+}

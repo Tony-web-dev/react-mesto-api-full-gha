@@ -1,0 +1,15 @@
+.gate__heading {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 29px;
+    text-align: center;
+}
+
+@media screen and (max-width: 620px) {
+    .gate__heading {
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 45px;
+    }
+}

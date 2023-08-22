@@ -1,0 +1,15 @@
+.gate__input {
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    color: #ccc;
+    height: 25px;
+    border-bottom: 2px solid #ccc;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+}

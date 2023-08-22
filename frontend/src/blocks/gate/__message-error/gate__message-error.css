@@ -1,0 +1,7 @@
+.gate__message-error {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.5px;
+    color: #f00;
+    padding: 0;
+}
