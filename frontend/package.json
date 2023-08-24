@@ -1,8 +1,7 @@
 {
-  "name": "react-mesto-auth",
+  "name": "react-mesto-api-full-gha",
   "version": "0.1.0",
   "author": "Antonina Timush",
-  "homepage": "https://tony-web-dev.github.io/react-mesto-auth/",
   "private": true,
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
