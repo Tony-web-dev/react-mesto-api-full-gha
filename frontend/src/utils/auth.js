@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://api.timish.nomoredomainsicu.ru";
 
 function checkResponse(res) {
   return res.ok
