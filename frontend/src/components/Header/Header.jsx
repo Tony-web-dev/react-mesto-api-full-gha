@@ -11,12 +11,12 @@ export default function Header({ loggedUser }) {
       <img className="header__logo" src={logo} alt="Логотип" />
       <div className="header__loginbox">
         <Routes>
-          <Route path="sign-up" element={<Link to='/sign-in' className="header__link">Войти</Link>} />
-          <Route path="sign-in" element={<Link to='/sign-up' className="header__link">Регистрация</Link>} />
+          <Route path="signup" element={<Link to='/signin' className="header__link">Войти</Link>} />
+          <Route path="signin" element={<Link to='/signup' className="header__link">Регистрация</Link>} />
           <Route path="/" element={
           <>
             <p className="header__logged">{loggedUser}</p>
-            <Link to='/sign-in' className="header__link" onClick={onSignOut}>Выйти</Link>
+            <Link to='/signin' className="header__link" onClick={onSignOut}>Выйти</Link>
           </>
           } />
         </Routes>

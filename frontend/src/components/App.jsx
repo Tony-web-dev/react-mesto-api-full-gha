@@ -35,7 +35,7 @@ export default function App() {
   useEffect(() => {
     if(isLogged) {
       setIsLoading(true)
-      api.getInitialCards()
+      api.getInitialCards(localStorage.jwt)
       .then(cards => {
          setCards(cards);
          setIsLoading(false)
@@ -43,12 +43,12 @@ export default function App() {
        .catch((err) => {
          console.log(err);
        });
-    } 
+    }
   }, [isLogged])
 
   useEffect(() => {
     if(isLogged) {
-      api.getUserInfo()
+      api.getUserInfo(localStorage.jwt)
       .then(res => {
         setCurrentUser(res)
       })
@@ -90,9 +90,9 @@ export default function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     if(!isLiked) {
-      api.toLike(card._id)
+      api.toLike(card._id, localStorage.jwt)
       .then(res => {
         setCards((state) => state.map((c) => c._id === card._id ? res : c));
       })
@@ -100,7 +100,7 @@ export default function App() {
         console.log(err);
       });
     } else {
-      api.toDislike(card._id)
+      api.toDislike(card._id, localStorage.jwt)
       .then(res => {
         setCards((state) => state.map((c) => c._id === card._id ? res : c));
       })
@@ -112,7 +112,7 @@ export default function App() {
 
   function handleDeleteCardSubmit() {
     setIsSending(true);
-    api.deleteCard(isDeletedCard)
+    api.deleteCard(isDeletedCard, localStorage.jwt)
     .then(res => {
       setCards(cards.filter(card => {
         return card._id !== isDeletedCard;
@@ -127,7 +127,7 @@ export default function App() {
 
   function handleUpdateUser(user, reset) {
     setIsSending(true);
-    api.setUserInfo(user)
+    api.setUserInfo(user, localStorage.jwt)
     .then(res => {
       setCurrentUser(res);
       closeAllPopups();
@@ -141,7 +141,7 @@ export default function App() {
 
   function handleUpdateAvatar(user, reset) {
     setIsSending(true);
-    api.setAvatar(user)
+    api.setAvatar(user, localStorage.jwt)
     .then(res => {
       setCurrentUser(res);
       closeAllPopups();
@@ -155,7 +155,7 @@ export default function App() {
 
   function handleAddPlaceSubmit(newCard, reset) {
     setIsSending(true);
-    api.addCard(newCard)
+    api.addCard(newCard, localStorage.jwt)
     .then(res => {
       setCards([res, ...cards]);
       closeAllPopups();
@@ -171,7 +171,7 @@ function handleLogin(email, password) {
   setIsSending(true);
   authorization(email, password)
   .then(res => {
-    localStorage.setItem('jwt', res.token)
+    localStorage.setItem("jwt", res.token)
     setIsLogged(true)
     navigate('/')
   })
@@ -204,7 +204,7 @@ function handleRegister(email, password) {
     if(jwt) {
       getUserAuth(jwt)
       .then(res => {
-        setLoggedUser(res.data.email)
+        setLoggedUser(res.email)
         setIsLogged(true)
         navigate('/')
       })
@@ -221,7 +221,7 @@ function handleRegister(email, password) {
 
         <Routes>
           <Route path="/" element={
-            <ProtectedRoute isLogged={isLogged}> 
+            <ProtectedRoute isLogged={isLogged}>
               <Main
               name="content"
               cards={cards}
@@ -231,18 +231,18 @@ function handleRegister(email, password) {
               onCardClick={handleCardClick}
               onCardLike={handleCardLike}
               onCardDelete ={handleRemoveCardClick}
-              isLoading={isLoading} 
+              isLoading={isLoading}
               />
             </ProtectedRoute>
               } />
-          <Route path="/sign-up" element={<Main name="signup" handleRegister={handleRegister} />} />
-          <Route path="/sign-in" element={<Main name="signin" handleLogin={handleLogin}  />} />
+          <Route path="/signup" element={<Main name="signup" handleRegister={handleRegister} />} />
+          <Route path="/signin" element={<Main name="signin" handleLogin={handleLogin}  />} />
           <Route path="*" element={<Navigate to={"/"} />} />
         </Routes>
-        
+
         <Footer />
 
-        <EditProfilePopup 
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
@@ -256,7 +256,7 @@ function handleRegister(email, password) {
           isSending={isSending}
         />
 
-        <AddPlacePopup 
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}

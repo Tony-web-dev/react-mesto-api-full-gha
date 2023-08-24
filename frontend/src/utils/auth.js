@@ -1,4 +1,4 @@
-const baseUrl = "https://auth.nomoreparties.co";
+const baseUrl = "http://localhost:3000";
 
 function checkResponse(res) {
   return res.ok
@@ -16,7 +16,8 @@ export function authentication(email, password) {
       email: email,
       password: password,
     }),
-  }).then(res => checkResponse(res));
+  })
+  .then(res => checkResponse(res));
 }
 
 export function authorization(email, password) {
@@ -27,9 +28,10 @@ export function authorization(email, password) {
     },
     body: JSON.stringify({
       email: email,
-      password: password, 
+      password: password,
     }),
-  }).then(res => checkResponse(res));
+  })
+  .then(res => checkResponse(res));
 }
 
 export function getUserAuth(token) {
@@ -37,7 +39,8 @@ export function getUserAuth(token) {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      "Authorization": `Bearer ${token}`,
     },
-  }).then(res => checkResponse(res));
+  })
+  .then(res => checkResponse(res));
 }
