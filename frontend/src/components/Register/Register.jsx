@@ -45,9 +45,9 @@ export default function Register({ handleRegister, isSending }) {
               disabled={isSending}
             >Зарегистрироваться</button>
             <p className="gate__subtitle">Уже зарегистрированы?
-            <Link to={"/sign-in"} className="gate__subtitle-link"> Войти</Link>
+            <Link to={"/signin"} className="gate__subtitle-link"> Войти</Link>
             </p>
-          </fieldset>    
+          </fieldset>
         </form>
       </section>
     );

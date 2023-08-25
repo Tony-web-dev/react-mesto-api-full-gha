@@ -18,14 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(helmet());
-
 app.use(cors());
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 60,
-});
-app.use(limiter);
 
 mongoose.connect(DataBaseURL, {
   useNewUrlParser: true,
@@ -33,11 +26,11 @@ mongoose.connect(DataBaseURL, {
 });
 
 app.use(requestLogger);
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 60,
 });
+app.use(limiter);
 
 app.use('/signup', require('./routes/signup'));
 app.use('/signin', require('./routes/signin'));
